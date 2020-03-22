@@ -4,6 +4,13 @@ version = "0.1.0"
 authors = ["Jean-Marc Fiaschi"]
 edition = "2018"
 description = "Apply environment variables on an object"
+license = "GNU General Public License v3.0"
+include = [
+    "src/*",
+    "benches/*",
+    "Cargo.toml",
+    "LICENCE"
+]
 
 [dependencies]
 regex = "1"
