@@ -1,0 +1,16 @@
+[package]
+name = "env_applier"
+version = "0.1.0"
+authors = ["Jean-Marc Fiaschi"]
+edition = "2018"
+description = "Apply environment on an object"
+
+[dependencies]
+regex = "1"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "bench"
+harness = false
