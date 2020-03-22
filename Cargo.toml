@@ -11,6 +11,9 @@ include = [
     "Cargo.toml",
     "LICENCE"
 ]
+repository = "https://github.com/jmfiaschi/env_applier"
+keywords = ["env", "config", "apply", "applier"]
+readme = "README.md"
 
 [dependencies]
 regex = "1"
