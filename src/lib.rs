@@ -47,9 +47,8 @@ impl EnvApply for VarsOs {
 }
 
 #[cfg(test)]
-mod env_applier_test {
+mod tests {
     use super::*;
-
     #[test]
     fn it_should_apply_env_var_on_string() {
         let string = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#;
