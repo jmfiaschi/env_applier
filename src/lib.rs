@@ -1,68 +1,93 @@
-extern crate regex;
-
-use regex::*;
-use std::env::*;
+use std::env;
 
 pub trait EnvApply {
     /// Apply environment variables on a string.
-    fn apply(text: String) -> String;
+    fn apply(&self) -> String;
+
+    /// Apply environment variables by prepending a prefix to the variable names.
+    fn apply_with_prefix(&self, prefix: &str) -> String;
 }
 
 /// Apply environment variables on a string.
-impl EnvApply for Vars {
-    fn apply(text: String) -> String {
-        let key_pattern_regex = Regex::new("[{]{2}[ ]*([a-zA-Z0-9_-]+)[ ]*[}]{2}").unwrap();
-        let mut result = text.clone();
-        for key_pattern in key_pattern_regex.find_iter(text.as_ref()) {
-            let key_regex = Regex::new("[{]{2}[ ]*([a-zA-Z0-9_-]+)[ ]*[}]{2}").unwrap();
-            let key = key_regex.replace(key_pattern.as_str(), "$1").to_string();
-            let value = match var(key.as_str()) {
-                Ok(value) => value,
-                Err(_) => key_pattern.as_str().to_string(),
-            };
-            result = result.replace(key_pattern.as_str(), value.as_str());
-        }
+impl EnvApply for String {
+    fn apply(&self) -> String {
+        apply(self, "")
+    }
 
-        result
+    fn apply_with_prefix(&self, prefix: &str) -> String {
+        apply(self, prefix)
     }
 }
 
-/// Apply OS environment variables on a string.
-impl EnvApply for VarsOs {
-    fn apply(text: String) -> String {
-        let key_pattern_regex = Regex::new("[{]{2}[ ]*([a-zA-Z0-9_-]+)[ ]*[}]{2}").unwrap();
-        let mut result = text.clone();
-        for key_pattern in key_pattern_regex.find_iter(text.as_ref()) {
-            let key_regex = Regex::new("[{]{2}[ ]*([a-zA-Z0-9_-]+)[ ]*[}]{2}").unwrap();
-            let key = key_regex.replace(key_pattern.as_str(), "$1").to_string();
-            let value = match var_os(key.as_str()) {
-                Some(os) => os.to_string_lossy().to_string(),
-                None => key_pattern.as_str().to_string(),
-            };
-            result = result.replace(key_pattern.as_str(), value.as_str());
-        }
+/// Function to replace placeholders with environment variables
+/// Handles both normal and prefixed environment variable lookups
+fn apply(text: &str, prefix: &str) -> String {
+    let mut result = String::with_capacity(text.len());
+    let mut start = 0;
 
-        result
+    while let Some(open) = text[start..].find("{{") {
+        let open = start + open;
+        if let Some(close) = text[open..].find("}}") {
+            let close = open + close + 2;
+
+            // Add the part before the placeholder
+            result.push_str(&text[start..open]);
+
+            // Extract the key and trim it
+            let key = text[open + 2..close - 2].trim();
+
+            // Prepend the prefix and get the environment variable value
+            let full_key = format!("{}{}", prefix, key);
+            let value = env::var(&full_key).unwrap_or_else(|_| text[open..close].to_string());
+
+            // Add the value
+            result.push_str(&value);
+
+            // Move the start position
+            start = close;
+        } else {
+            break; // If there's no closing "}}", stop processing
+        }
     }
+
+    // Add the remaining part of the string
+    result.push_str(&text[start..]);
+    result
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn it_should_apply_env_var_on_string() {
-        let string = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#;
-        set_var("ENV_KEY1", "ENV_VALUE1");
-        set_var("ENV_KEY2", "ENV_VALUE2");
-        let result = Vars::apply(string.to_string());
-        assert_eq!(r#"{"field1":"ENV_VALUE1","field2":"ENV_VALUE2"}"#, result);
+        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#.to_string();
+        env::set_var("ENV_KEY1", "VALUE1");
+        env::set_var("ENV_KEY2", "VALUE2");
+        assert_eq!(r#"{"field1":"VALUE1","field2":"VALUE2"}"#, config.apply());
     }
+
     #[test]
-    fn it_should_apply_env_var_os_on_string() {
-        let string = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#;
-        set_var("ENV_KEY1", "ENV_VALUE1");
-        set_var("ENV_KEY2", "ENV_VALUE2");
-        let result = VarsOs::apply(string.to_string());
-        assert_eq!(r#"{"field1":"ENV_VALUE1","field2":"ENV_VALUE2"}"#, result);
+    fn it_should_apply_env_var_by_prefix() {
+        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#.to_string();
+        env::set_var("DEV_ENV_KEY1", "DEV_VALUE1");
+        env::set_var("DEV_ENV_KEY2", "DEV_VALUE2");
+        assert_eq!(
+            r#"{"field1":"DEV_VALUE1","field2":"DEV_VALUE2"}"#,
+            config.apply_with_prefix("DEV_")
+        );
+    }
+
+    #[test]
+    fn it_should_handle_missing_placeholders_gracefully() {
+        let config =
+            r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}","field3":"{{ MISSING_KEY }}"}"#
+                .to_string();
+        env::set_var("ENV_KEY1", "VALUE1");
+        env::set_var("ENV_KEY2", "VALUE2");
+        assert_eq!(
+            r#"{"field1":"VALUE1","field2":"VALUE2","field3":"{{ MISSING_KEY }}"}"#,
+            config.apply()
+        );
     }
 }

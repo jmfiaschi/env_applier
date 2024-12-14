@@ -15,11 +15,8 @@ repository = "https://github.com/jmfiaschi/env_applier"
 keywords = ["env", "config", "apply", "applier"]
 readme = "README.md"
 
-[dependencies]
-regex = "1"
-
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.5"
 
 [[bench]]
 name = "bench"
