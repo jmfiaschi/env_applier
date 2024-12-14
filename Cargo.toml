@@ -1,6 +1,6 @@
 [package]
 name = "env_applier"
-version = "0.1.2"
+version = "1.0.0-beta.1"
 authors = ["Jean-Marc Fiaschi"]
 edition = "2018"
 description = "Apply environment variables on an object"
@@ -15,11 +15,8 @@ repository = "https://github.com/jmfiaschi/env_applier"
 keywords = ["env", "config", "apply", "applier"]
 readme = "README.md"
 
-[dependencies]
-regex = "1"
-
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.5"
 
 [[bench]]
 name = "bench"
