@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/jmfiaschi/env_applier/compare/v1.0.0...v1.1.0) (2024-12-14)
+
+
+### Features
+
+* **str:** support apply on str ([#2](https://github.com/jmfiaschi/env_applier/issues/2)) ([c2b7532](https://github.com/jmfiaschi/env_applier/commit/c2b75323087f416935e9bcd51200a70a6f347be9))
+
 # [1.1.0-beta.1](https://github.com/jmfiaschi/env_applier/compare/v1.0.0...v1.1.0-beta.1) (2024-12-14)
 
 
