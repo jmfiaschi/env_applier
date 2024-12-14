@@ -1,6 +1,6 @@
 [package]
 name = "env_applier"
-version = "0.1.2"
+version = "1.0.0-beta.1"
 authors = ["Jean-Marc Fiaschi"]
 edition = "2018"
 description = "Apply environment variables on an object"
