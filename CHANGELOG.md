@@ -1,3 +1,10 @@
+# 1.0.0 (2024-12-14)
+
+
+### Features
+
+* **upgrade:** simplify and improve the lib ([#1](https://github.com/jmfiaschi/env_applier/issues/1)) ([fdbe41d](https://github.com/jmfiaschi/env_applier/commit/fdbe41d5c6f55b2d6f82e645d5f8570cc13deb0d))
+
 # 1.0.0-beta.1 (2024-12-14)
 
 
