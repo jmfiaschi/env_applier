@@ -1,20 +1,30 @@
 use std::env;
 
-pub trait EnvApply {
+pub trait EnvApply<'a> {
     /// Apply environment variables on a string.
-    fn apply(&self) -> String;
+    fn apply(&'a self) -> String;
 
     /// Apply environment variables by prepending a prefix to the variable names.
-    fn apply_with_prefix(&self, prefix: &str) -> String;
+    fn apply_with_prefix(&'a self, prefix: &str) -> String;
 }
 
 /// Apply environment variables on a string.
-impl EnvApply for String {
+impl<'a> EnvApply<'a> for String {
     fn apply(&self) -> String {
         apply(self, "")
     }
 
     fn apply_with_prefix(&self, prefix: &str) -> String {
+        apply(self, prefix)
+    }
+}
+
+impl<'a> EnvApply<'a> for str {
+    fn apply(&'a self) -> String {
+        apply(self, "")
+    }
+
+    fn apply_with_prefix(&'a self, prefix: &str) -> String {
         apply(self, prefix)
     }
 }
@@ -61,7 +71,7 @@ mod tests {
 
     #[test]
     fn it_should_apply_env_var_on_string() {
-        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#.to_string();
+        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#;
         env::set_var("ENV_KEY1", "VALUE1");
         env::set_var("ENV_KEY2", "VALUE2");
         assert_eq!(r#"{"field1":"VALUE1","field2":"VALUE2"}"#, config.apply());
@@ -69,7 +79,7 @@ mod tests {
 
     #[test]
     fn it_should_apply_env_var_by_prefix() {
-        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#.to_string();
+        let config = r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}"}"#;
         env::set_var("DEV_ENV_KEY1", "DEV_VALUE1");
         env::set_var("DEV_ENV_KEY2", "DEV_VALUE2");
         assert_eq!(
@@ -81,8 +91,7 @@ mod tests {
     #[test]
     fn it_should_handle_missing_placeholders_gracefully() {
         let config =
-            r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}","field3":"{{ MISSING_KEY }}"}"#
-                .to_string();
+            r#"{"field1":"{{ ENV_KEY1 }}","field2":"{{ENV_KEY2}}","field3":"{{ MISSING_KEY }}"}"#;
         env::set_var("ENV_KEY1", "VALUE1");
         env::set_var("ENV_KEY2", "VALUE2");
         assert_eq!(
