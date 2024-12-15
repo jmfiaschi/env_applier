@@ -47,7 +47,7 @@ fn apply(text: &str, prefix: &str) -> String {
             let key = text[open + 2..close - 2].trim();
 
             // Prepend the prefix and get the environment variable value
-            let full_key = format!("{}{}", prefix, key);
+            let full_key = format!("{}_{}", prefix, key);
             let value = env::var(&full_key).unwrap_or_else(|_| text[open..close].to_string());
 
             // Add the value
@@ -84,7 +84,7 @@ mod tests {
         env::set_var("DEV_ENV_KEY2", "DEV_VALUE2");
         assert_eq!(
             r#"{"field1":"DEV_VALUE1","field2":"DEV_VALUE2"}"#,
-            config.apply_with_prefix("DEV_")
+            config.apply_with_prefix("DEV")
         );
     }
 
