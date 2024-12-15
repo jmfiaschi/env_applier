@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/jmfiaschi/env_applier/compare/v1.1.0...v1.1.1) (2024-12-15)
+
+
+### Bug Fixes
+
+* **project:** remove mandatory separator in the argument of apply_wit… ([#3](https://github.com/jmfiaschi/env_applier/issues/3)) ([bb02ea7](https://github.com/jmfiaschi/env_applier/commit/bb02ea7c5b241836935c2fa84d5f14cbc4cc3678))
+
 ## [1.1.1-beta.1](https://github.com/jmfiaschi/env_applier/compare/v1.1.0...v1.1.1-beta.1) (2024-12-15)
 
 
