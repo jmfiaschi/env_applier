@@ -15,7 +15,7 @@ impl<'a> EnvApply<'a> for String {
     }
 
     fn apply_with_prefix(&self, prefix: &str) -> String {
-        apply(self, prefix)
+        apply(self, format!("{}_", prefix).as_str())
     }
 }
 
@@ -25,7 +25,7 @@ impl<'a> EnvApply<'a> for str {
     }
 
     fn apply_with_prefix(&'a self, prefix: &str) -> String {
-        apply(self, prefix)
+        apply(self, format!("{}_", prefix).as_str())
     }
 }
 
@@ -47,7 +47,7 @@ fn apply(text: &str, prefix: &str) -> String {
             let key = text[open + 2..close - 2].trim();
 
             // Prepend the prefix and get the environment variable value
-            let full_key = format!("{}_{}", prefix, key);
+            let full_key = format!("{}{}", prefix, key);
             let value = env::var(&full_key).unwrap_or_else(|_| text[open..close].to_string());
 
             // Add the value
