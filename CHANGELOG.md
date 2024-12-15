@@ -1,3 +1,11 @@
+## [1.1.1-beta.1](https://github.com/jmfiaschi/env_applier/compare/v1.1.0...v1.1.1-beta.1) (2024-12-15)
+
+
+### Bug Fixes
+
+* **project:** improve perf ([4a12d6f](https://github.com/jmfiaschi/env_applier/commit/4a12d6fc101226e9d72c0e81a3aea89c97f8c14f))
+* **project:** remove mandatory separator in the argument of apply_with_prefix ([35d9896](https://github.com/jmfiaschi/env_applier/commit/35d9896f72e2851414cbab12d6e511e31673fd88))
+
 # [1.1.0](https://github.com/jmfiaschi/env_applier/compare/v1.0.0...v1.1.0) (2024-12-14)
 
 

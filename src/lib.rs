@@ -15,7 +15,7 @@ impl<'a> EnvApply<'a> for String {
     }
 
     fn apply_with_prefix(&self, prefix: &str) -> String {
-        apply(self, prefix)
+        apply(self, format!("{}_", prefix).as_str())
     }
 }
 
@@ -25,7 +25,7 @@ impl<'a> EnvApply<'a> for str {
     }
 
     fn apply_with_prefix(&'a self, prefix: &str) -> String {
-        apply(self, prefix)
+        apply(self, format!("{}_", prefix).as_str())
     }
 }
 
@@ -84,7 +84,7 @@ mod tests {
         env::set_var("DEV_ENV_KEY2", "DEV_VALUE2");
         assert_eq!(
             r#"{"field1":"DEV_VALUE1","field2":"DEV_VALUE2"}"#,
-            config.apply_with_prefix("DEV_")
+            config.apply_with_prefix("DEV")
         );
     }
 
