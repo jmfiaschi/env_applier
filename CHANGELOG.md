@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/jmfiaschi/env_applier/compare/v1.1.1...v1.1.2) (2025-01-09)
+
+
+### Bug Fixes
+
+* **project:** Remove Cargo.lock from version control ([cdc309b](https://github.com/jmfiaschi/env_applier/commit/cdc309b629aa9cc653e8818ea89308931dd21a0e))
+
 ## [1.1.1](https://github.com/jmfiaschi/env_applier/compare/v1.1.0...v1.1.1) (2024-12-15)
 
 
