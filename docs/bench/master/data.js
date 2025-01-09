@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1736448628197,
+  "lastUpdate": 1736449289061,
   "repoUrl": "https://github.com/jmfiaschi/env_applier",
   "entries": {
     "Benchmark": [
@@ -59,6 +59,36 @@ window.BENCHMARK_DATA = {
             "name": "String/Bench apply",
             "value": 555,
             "range": "± 8",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jm.fiaschi@gmail.com",
+            "name": "Jean-Marc FIASCHI",
+            "username": "jmfiaschi"
+          },
+          "committer": {
+            "email": "jm.fiaschi@gmail.com",
+            "name": "Jean-Marc FIASCHI",
+            "username": "jmfiaschi"
+          },
+          "distinct": true,
+          "id": "cdc309b629aa9cc653e8818ea89308931dd21a0e",
+          "message": "fix(project): Remove Cargo.lock from version control",
+          "timestamp": "2025-01-09T20:00:04+01:00",
+          "tree_id": "710c4094966b866e5356cd4a533157d854df7610",
+          "url": "https://github.com/jmfiaschi/env_applier/commit/cdc309b629aa9cc653e8818ea89308931dd21a0e"
+        },
+        "date": 1736449288692,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "String/Bench apply",
+            "value": 573,
+            "range": "± 3",
             "unit": "ns/iter"
           }
         ]
