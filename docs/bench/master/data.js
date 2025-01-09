@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1734302050281,
+  "lastUpdate": 1736448628197,
   "repoUrl": "https://github.com/jmfiaschi/env_applier",
   "entries": {
     "Benchmark": [
@@ -29,6 +29,36 @@ window.BENCHMARK_DATA = {
             "name": "String/Bench apply",
             "value": 556,
             "range": "± 36",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jm.fiaschi@gmail.com",
+            "name": "Jean-Marc FIASCHI",
+            "username": "jmfiaschi"
+          },
+          "committer": {
+            "email": "jm.fiaschi@gmail.com",
+            "name": "Jean-Marc FIASCHI",
+            "username": "jmfiaschi"
+          },
+          "distinct": true,
+          "id": "3770c756c4c4bd2f34d143418c7e206681f88082",
+          "message": "chore(readme): fix useful link",
+          "timestamp": "2025-01-09T19:44:58+01:00",
+          "tree_id": "d18321abcd8aab0585b8b148f9408775cb6bc1f0",
+          "url": "https://github.com/jmfiaschi/env_applier/commit/3770c756c4c4bd2f34d143418c7e206681f88082"
+        },
+        "date": 1736448627709,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "String/Bench apply",
+            "value": 555,
+            "range": "± 8",
             "unit": "ns/iter"
           }
         ]
