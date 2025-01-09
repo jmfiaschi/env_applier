@@ -3,10 +3,21 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![crates.io](https://img.shields.io/crates/v/env_applier.svg)
 
-Apply environment variables on a string.
+env_applier is a Rust crate that applies environment variables to placeholders in a string, making configuration handling simple and flexible.
 
 # Getting Started
+
+## Installation
+
+Add the following line to your Cargo.toml:
+```toml
+[dependencies]
+env_applier = "x.y.z" # Replace with the latest version
+```
+
 ## Quick Start
+
+### Basic Example
 ```rust
 extern crate env_applier;
 
@@ -18,8 +29,11 @@ fn main() -> () {
 }
 ```
 
-or with prefix
+In this example, {{ HOME }} is replaced with the value of the HOME environment variable.
 
+---
+
+### Example with Prefix
 ```rust
 extern crate env_applier;
 
@@ -30,19 +44,37 @@ fn main() -> () {
     println!("My new config : {:?}", config);
 }
 ```
+When using `apply_with_prefix`, only environment variables prefixed with `MY_PREFIX` will be considered.
+
+---
 
 ## Useful link
 
-* [Benchmark report](https://jmfiaschi.github.io/json_value_merge/bench/main/)
-* [Package](https://crates.io/crates/json_value_merge)
+* [Benchmark report](https://jmfiaschi.github.io/env_applier/bench/main/)
+* [Package](https://crates.io/crates/env_applier)
+
+---
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Contributions are welcome!
 
-Please make sure to update tests as appropriate.
+To contribute:
+
+1. Fork the repository and create your branch (git checkout -b feature/my-feature).
+2. Commit your changes (git commit -m 'Add some feature').
+3. Push to the branch (git push origin feature/my-feature).
+4. Open a pull request.
+
+For major changes, please open an issue first to discuss your proposal.
+
+Please ensure that tests are added or updated as appropriate.
+
+---
 
 ## License
 
-[Apache](https://choosealicense.com/licenses/apache-2.0/)
-[MIT](https://choosealicense.com/licenses/mit/)
+Licensed under either of the following, at your option:
+
+* [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+* [MIT License](https://choosealicense.com/licenses/mit/)
